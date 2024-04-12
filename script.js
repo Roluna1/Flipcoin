@@ -40,6 +40,8 @@ document.querySelectorAll('.bet-button').forEach((button) => {
     totalBets(betPriceButton)
   });
 });
+const disableButtonEvent = document.querySelector('.pick-button');
+const disableBetButtonEvent = document.querySelector('.betButton');
 const pickHeads = document.querySelector('.js-pick-heads');
 const pickTails = document.querySelector('.js-pick-tails');
 let coin = document.querySelector('.coin');
@@ -48,10 +50,21 @@ let result = '';
 let buttonPrice = betPrice.price
 let betPriceBet = betPrice.bet
 pickHeads.addEventListener('click', () => {
-  playGame('heads')
+  if (allTotalsBet === 0) {
+    alert('Please add some bet');
+  } else {
+    playGame('heads');
+    disableButton();
+  }
 });
 pickTails.addEventListener('click', () => {
-  playGame('tails');
+  if (allTotalsBet === 0) {
+    alert('Please add some bet');
+  } else {
+    playGame('tails');
+    disableButton();
+  }
+
 });
 function playGame(playerPick) {
   if (allTotalsBet === 0) {
@@ -84,7 +97,6 @@ function playGame(playerPick) {
           playerResult = 'You lose';
           allTotalsBet = 0;
         }
-        console.log(playerResult);
       }
       if (playerPick === 'tails') {
         if (result === 'tails') {
@@ -96,12 +108,13 @@ function playGame(playerPick) {
           playerResult = 'You lose';
           allTotalsBet = 0;
         }
-        console.log(playerResult);
       }
       resultHTML.textContent = playerResult;
       updateStats();
     }, 3000);
-    disableButton();
+    setTimeout(() => {
+      resultHTML.textContent = '';
+    }, 4000);
   }
 }
 function totalBets(betPriceBet) {
@@ -111,15 +124,12 @@ function totalBets(betPriceBet) {
         allTotalsBet += bet.price;
         cash.money -= bet.price; 
         
-        console.log(`Bet added = ${bet.price}`)
       } else {
-        console.log("Insufficient funds.");
       }
     }
     moneyStats.textContent = `Money: ₱${cash.money}`
-    betStats.textContent = `Total Bets: ₱${allTotalsBet}`
+    betStats.textContent = `Bets: ₱${allTotalsBet}`
   });
-  console.log(`Total bets: ${allTotalsBet}`);
 }
 function updateStats() {
   const totalFlips = heads + tails;
@@ -128,14 +138,20 @@ function updateStats() {
   document.querySelector('.head-count').textContent = `Heads: ${headPercent.toFixed(1)}%`;
   document.querySelector('.tail-count').textContent = `Tails: ${tailPercent.toFixed(1)}%`;
   moneyStats.textContent = `Money: ₱${cash.money}`
-  betStats.textContent = `Total Bets: ₱${allTotalsBet}`
+  betStats.textContent = `Bets: ₱${allTotalsBet}`
 }
 function disableButton() {
+  document.querySelectorAll('.bet-button').forEach((button) => {
+    button.disabled = true;
+  setTimeout(() => {
+    button.disabled = false;
+  }, 3000);
+  });
   pickHeads.disabled = true;
   pickTails.disabled = true;
   setTimeout(() => {
-    pickHeads.disabled = false;
-    pickTails.disabled = false;
+  pickHeads.disabled = false;
+  pickTails.disabled = false;
   }, 3000);
 }
 updateStats()
