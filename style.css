@@ -23,7 +23,7 @@ body{
   background-color: #9B3922;
   width: 100%;
   padding: 40px 20px;
-  box-shadow: 0 0 100px rgba(185, 175, 84, 0.25);
+  box-shadow: 0 0 30px #9B3922;
   border-radius: 10px;
 }
 .coin{
