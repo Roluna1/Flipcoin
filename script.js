@@ -55,7 +55,7 @@ pickTails.addEventListener('click', () => {
 });
 function playGame(playerPick) {
   if (allTotalsBet === 0) {
-    alert('Please put your some bet');
+    alert('Please add some bet');
   } else {
     let headsWin = Math.floor(Math.random() * 2);
     coin.style.animation = 'none';
@@ -80,7 +80,6 @@ function playGame(playerPick) {
           let betsPlaced = allTotalsBet;
           cash.money += betsPlaced * 2;
           allTotalsBet = 0;
-          console.log('Cash balance after win:', cash.money);
         } else {
           playerResult = 'You lose';
           allTotalsBet = 0;
@@ -93,7 +92,6 @@ function playGame(playerPick) {
           let betsPlaced = allTotalsBet;
           cash.money += betsPlaced * 2;
           allTotalsBet = 0;
-          console.log('Cash balance after win:', cash.money);
         } else {
           playerResult = 'You lose';
           allTotalsBet = 0;
