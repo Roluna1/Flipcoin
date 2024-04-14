@@ -156,3 +156,12 @@ body{
 .pick-button:active{
   opacity: .5;
 }
+
+@media only screen and (max-width: 600px) {
+  *{
+   transform: scale(.98);
+  }
+  .js-result{
+   font-size: 1.25rem;
+ }
+}
